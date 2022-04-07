@@ -1,3 +1,4 @@
+/*
 package com.practice.java;
 
 import org.junit.jupiter.api.Test;
@@ -11,3 +12,4 @@ class JavaApplicationTests {
 	}
 
 }
+*/

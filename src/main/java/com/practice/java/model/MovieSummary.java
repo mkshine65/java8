@@ -1,5 +1,9 @@
 package com.practice.java.model;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieSummary {
@@ -8,9 +12,18 @@ public class MovieSummary {
     private String title;
     private String overview;
     CollectionList belongs_to_collection;
+    List<Genres> genres;
+
+    public List<Genres> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genres> genres) {
+        this.genres = genres;
+    }
 
     public CollectionList getBelongs_to_collection() {
-        return new CollectionList();
+        return belongs_to_collection;
     }
 
     public void setBelongs_to_collection(CollectionList belongs_to_collection) {

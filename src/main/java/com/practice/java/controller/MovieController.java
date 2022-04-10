@@ -1,5 +1,8 @@
 package com.practice.java.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.practice.java.model.CollectionList;
 import com.practice.java.model.Movie;
 import com.practice.java.model.MovieSummary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.http.HttpClient;
+
 
 @RestController
 public class MovieController {
@@ -24,9 +30,16 @@ public class MovieController {
     {
             String url="https://api.themoviedb.org/3/movie/"+id+"?api_key="+apiKey;
 
-            MovieSummary movieSummary=restTemplate.getForObject(url,MovieSummary.class);
+        String object=restTemplate.getForObject(url,String.class);
+        JsonObject convertedObject = new Gson().fromJson(object, JsonObject.class);
 
-            return movieSummary;
-            //return new Movie(movieSummary.getId(), movieSummary.getOverview());
+
+        MovieSummary movieSummary= new Gson().fromJson(object,MovieSummary.class);
+
+          return movieSummary;
     }
+
+
+
+
 }

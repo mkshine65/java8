@@ -1,9 +1,7 @@
 package com.examplejava;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -46,8 +44,45 @@ public class StreamExample {
         //Compartor for employee object
         Comparator<Employee> e=Comparator.comparing(Employee::getName);
 
+        
+        //Generate Student Data
+        List<Student> studentList=generateStudentData();
+
+        //Get average marks of all Students
+        List<Double> avglist= studentList.stream().map(s -> s.getMarks().stream().mapToDouble(k->k).average()).
+                map(j-> j.getAsDouble()).collect(Collectors.toList());
 
 
+        System.out.println(avglist);
+
+        //Get the marks of each student with their id in map
+        
+        Map<Integer,Double> map=studentList.stream().collect(Collectors.toMap(Student::getId,
+                s-> s.getMarks().stream().mapToDouble(j->j).average().getAsDouble()));
+
+        map.entrySet().forEach(kv-> System.out.println(kv.getKey()+":"+kv.getValue()));
+        
+
+
+
+
+
+    }
+
+    private static List<Student> generateStudentData() {
+
+        List<Student> list=new ArrayList<>();
+        List<Integer> mark =null;
+        Random r=new Random();
+        for(int i=0;i<4;i++)
+        {
+            mark = new ArrayList<>();
+            for (int j = 0; j < 5; j++) {
+                mark.add(r.nextInt(50) + 50);
+            }
+            list.add(new Student(i+1,String.valueOf((char)(i+97)),mark));
+        }
+        return  list;
 
     }
 
